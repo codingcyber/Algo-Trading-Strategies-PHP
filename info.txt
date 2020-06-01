@@ -1,0 +1,3 @@
+https://api.worldtradingdata.com/api/v1/stock?symbol=INFY.NS&api_token=token
+
+https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=GOOG&apikey=key
