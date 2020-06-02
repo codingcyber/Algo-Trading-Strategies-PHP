@@ -41,14 +41,15 @@ if(isset($_GET['days']) & !empty($_GET['days'])){
         foreach ($stockvals as $stockval) {
       ?>
       // Date, Low, Open, Close, High
-      ['<?php echo $stockval['trade_date']; ?>', <?php echo $stockval['price_low']; ?>, <?php echo $stockval['price_open']; ?>, <?php echo $stockval['price_close']; ?>, <?php echo $stockval['price_high']; ?>, <?php echo $stockval['20sma']; ?>],
+      ['<?php echo $stockval['trade_date']; ?>', <?php echo $stockval['price_low']; ?>, <?php echo $stockval['price_open']; ?>, <?php echo $stockval['price_close']; ?>, <?php echo $stockval['price_high']; ?>, <?php echo $stockval['8ema']; ?>, <?php echo $stockval['15ema']; ?>],
       <?php } ?>
       // Treat first row as data as well.
     ], true);
 
     var options = {
       series:{
-        1: {type: 'line'}
+        1: {type: 'line'},
+        2: {type: 'line'}
       },
       legend:'none',
       candlestick: {
@@ -66,6 +67,6 @@ if(isset($_GET['days']) & !empty($_GET['days'])){
   <body>
     <h2><?php echo $_GET['scrip']; ?> - <?php if(isset($_GET['type']) & !empty($_GET['type'])){ echo $_GET['type']; }else{ echo "Daily";} ?><?php if(isset($_GET['days']) & !empty($_GET['days'])){ echo " - " .$_GET['days'] . " Days"; } ?> Candle Stick Chart</h2>
     <div id="chart_div" style="width: 100%; height: 550px;"></div>
-    <a href="http://localhost/Algo-Trading-Strategies-PHP/chart.php?scrip=<?php echo $_GET['scrip']; ?>&days=30">30 Days</a> | <a href="http://localhost/Stock-Market-Application/chart.php?scrip=<?php echo $_GET['scrip']; ?>&days=60">60 Days</a> | <a href="http://localhost/Algo-Trading-Strategies-PHP/chart.php?scrip=<?php echo $_GET['scrip']; ?>&days=90">90 Days</a> | <a href="http://localhost/Algo-Trading-Strategies-PHP/chart.php?scrip=<?php echo $_GET['scrip']; ?>&days=180">180 Days</a> | <a href="http://localhost/Stock-Market-Application/chart.php?scrip=<?php echo $_GET['scrip']; ?>&days=360">360 Days</a> | <a href="http://localhost/Algo-Trading-Strategies-PHP/chart.php?scrip=<?php echo $_GET['scrip']; ?>&type=weekly">Weekly</a> | <a href="http://localhost/Stock-Market-Application/chart.php?scrip=<?php echo $_GET['scrip']; ?>&type=monthly">Monthly</a>
+    <a href="http://localhost/Algo-Trading-Strategies-PHP/chart.php?scrip=<?php echo $_GET['scrip']; ?>&days=30">30 Days</a> | <a href="http://localhost/Algo-Trading-Strategies-PHP/chart.php?scrip=<?php echo $_GET['scrip']; ?>&days=60">60 Days</a> | <a href="http://localhost/Algo-Trading-Strategies-PHP/chart.php?scrip=<?php echo $_GET['scrip']; ?>&days=90">90 Days</a> | <a href="http://localhost/Algo-Trading-Strategies-PHP/chart.php?scrip=<?php echo $_GET['scrip']; ?>&days=180">180 Days</a> | <a href="http://localhost/Algo-Trading-Strategies-PHP/chart.php?scrip=<?php echo $_GET['scrip']; ?>&days=360">360 Days</a> | <a href="http://localhost/Algo-Trading-Strategies-PHP/chart.php?scrip=<?php echo $_GET['scrip']; ?>&type=weekly">Weekly</a> | <a href="http://localhost/Algo-Trading-Strategies-PHP/chart.php?scrip=<?php echo $_GET['scrip']; ?>&type=monthly">Monthly</a>
   </body>
 </html>
