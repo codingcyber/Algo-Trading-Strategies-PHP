@@ -15,23 +15,46 @@ if(isset($_GET['days']) & !empty($_GET['days'])){
 // print_r($stockvals);
 // echo "</pre>";
 // TO-DO : We should return only first buy signal & first sell signal
+// We should compare the previous value for getting only first buy or sell signal
+// for buy signal, current candle should close above 20 sma (current candle price close greater than 20 sma) & previous candle should closed below 20 sma (previous candle price close less than 20 sma)
+// for sell signal, current candle should close below 20 sma (current candle price close less than 20 sma) & previous candle should be closed above 20 sma (previous candle price close greater than 20 sma)
 foreach ($stockvals as $stockval) {
   // BUY signal
   // check the price_close with 20 sma value
   // if the price_close is above 20 sma line(price_close greater than 20 sma value), it's buy signal
-  if($stockval['price_close'] > $stockval['20sma']){
-    echo "<p style='color:green;'>";
-    echo "BUY " . $stockval['trade_date'] . " - " . $stockval['price_close'] . "<br>";
-    echo "</p>";
+  // if previous value is not empty, we will check the current candle & previous candle. If the previous candle is empty, we will check only current candle
+  // for BUY signal, we need only bullish candles (that is green candles)
+  if(!empty($previousval)){
+    if(($previousval['price_close'] < $previousval['20sma']) && ($stockval['price_close'] > $stockval['20sma'])){
+      echo "<p style='color:green;'>";
+      echo "BUY " . $stockval['trade_date'] . " - " . $stockval['price_close'] . " - 1<br>";
+      echo "</p>";
+    }
+  }else{
+    if($stockval['price_close'] > $stockval['20sma']){
+      echo "<p style='color:green;'>";
+      echo "BUY " . $stockval['trade_date'] . " - " . $stockval['price_close'] . " - 2<br>";
+      echo "</p>";
+    }
   }
   // SELL signal
   // if the price_close is below 20 sma line(price_close less than 20 sma value), it's sell signal
-  if($stockval['price_close'] < $stockval['20sma']){
-    echo "<p style='color:red;'>";
-    echo "SELL " . $stockval['trade_date'] . " - " . $stockval['price_close'] . "<br>";
-    echo "</p>";
+  if(!empty($previousval)){
+    if(($previousval['price_close'] > $previousval['20sma']) && ($stockval['price_close'] < $stockval['20sma'])){
+      echo "<p style='color:red;'>";
+      echo "SELL " . $stockval['trade_date'] . " - " . $stockval['price_close'] . " - 3<br>";
+      echo "</p>";
+    }
+  }else{
+    if($stockval['price_close'] < $stockval['20sma']){
+      echo "<p style='color:red;'>";
+      echo "SELL " . $stockval['trade_date'] . " - " . $stockval['price_close'] . " - 4<br>";
+      echo "</p>";
+    }
   }
-}
+  $previousval = $stockval;
+
+} // foreach loop end
 
 
 
