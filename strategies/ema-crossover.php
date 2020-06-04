@@ -17,20 +17,42 @@ if(isset($_GET['days']) & !empty($_GET['days'])){
 // TO DO : We should return only first buy & sell signal
 foreach ($stockvals as $stockval) {
   // BUY signal
-  // for buy signal, 8 ema value should be greater than 15 ema value
-  if($stockval['8ema'] > $stockval['15ema']){
-    echo "<p style='color:green;'>";
-    echo "BUY " . $stockval['trade_date'] . " - " . $stockval['price_close'] . " - 2<br>";
-    echo "</p>";
+  // check with previous candle, if there is a previous candle
+  if(!empty($previousval)){
+    // for buy signal, previous candle's 8 ema value should be less than 15 ema value
+    // for buy signal, current candle's 8 ema value should be greater than 15 ema value
+    if(($previousval['8ema'] < $previousval['15ema']) && ($stockval['8ema'] > $stockval['15ema'])){
+      echo "<p style='color:green;'>";
+      echo "BUY " . $stockval['trade_date'] . " - " . $stockval['price_close'] . " - 1<br>";
+      echo "</p>";
+    }
+  }else{
+    // if no previous candle, only check the current candle
+    if($stockval['8ema'] > $stockval['15ema']){
+      echo "<p style='color:green;'>";
+      echo "BUY " . $stockval['trade_date'] . " - " . $stockval['price_close'] . " - 2<br>";
+      echo "</p>";
+    }
   }
 
   // SELL signal
+  if(!empty($previousval)){
+  // for sell signal, previous candle's 8 ema value should be greater than 15 ema value
   // for sell signal, 15 ema value should be greater than 8 ema (or 8 ema value should be less than 15 ema)
-  if($stockval['8ema'] < $stockval['15ema']){
-    echo "<p style='color:red;'>";
-    echo "SELL " . $stockval['trade_date'] . " - " . $stockval['price_close'] . " - 2<br>";
-    echo "</p>";
+    if(($previousval['8ema'] > $previousval['15ema']) && ($stockval['8ema'] < $stockval['15ema'])){
+      echo "<p style='color:red;'>";
+      echo "SELL " . $stockval['trade_date'] . " - " . $stockval['price_close'] . " - 3<br>";
+      echo "</p>";
+    }
+  }else{
+    // if no previous candle, only check the current candle
+    if($stockval['8ema'] < $stockval['15ema']){
+      echo "<p style='color:red;'>";
+      echo "SELL " . $stockval['trade_date'] . " - " . $stockval['price_close'] . " - 4<br>";
+      echo "</p>";
+    }
   }
+  $previousval = $stockval;
 
 } // foreach loop end
 
