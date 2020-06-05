@@ -15,6 +15,7 @@ if(isset($_GET['days']) & !empty($_GET['days'])){
 // print_r($stockvals);
 // echo "</pre>";
 // TO DO : We should return only first buy & sell signal
+// checking bullish & bearish candles - here in case of ema crossover, we don't need to check the bullish & bearish candles
 foreach ($stockvals as $stockval) {
   // BUY signal
   // check with previous candle, if there is a previous candle
