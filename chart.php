@@ -41,7 +41,7 @@ if(isset($_GET['days']) & !empty($_GET['days'])){
         foreach ($stockvals as $stockval) {
       ?>
       // Date, Low, Open, Close, High
-      ['<?php echo $stockval['trade_date']; ?>', <?php echo $stockval['price_low']; ?>, <?php echo $stockval['price_open']; ?>, <?php echo $stockval['price_close']; ?>, <?php echo $stockval['price_high']; ?>, <?php echo $stockval['8ema']; ?>, <?php echo $stockval['15ema']; ?>],
+      ['<?php echo $stockval['trade_date']; ?>', <?php echo $stockval['price_low']; ?>, <?php echo $stockval['price_open']; ?>, <?php echo $stockval['price_close']; ?>, <?php echo $stockval['price_high']; ?>, <?php echo $stockval['bbl']; ?>, <?php echo $stockval['bbm']; ?>, <?php echo $stockval['bbu']; ?>],
       <?php } ?>
       // Treat first row as data as well.
     ], true);
@@ -49,7 +49,8 @@ if(isset($_GET['days']) & !empty($_GET['days'])){
     var options = {
       series:{
         1: {type: 'line'},
-        2: {type: 'line'}
+        2: {type: 'line'},
+        3: {type: 'line'}
       },
       legend:'none',
       candlestick: {
